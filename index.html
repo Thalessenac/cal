@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <style>
+        /* Aqui começa a definição dos estilos CSS para a página */
+
+        /* O asterisco (*) é um seletor universal em CSS, que seleciona todos os elementos da página */
+        * {
+            margin: 0;
+            /* Remove as margens de todos os elementos */
+            padding: 0;
+            /* Remove o padding (espaçamento interno) de todos os elementos */
+        }
+
+        /* Estilos para a div com a classe 'fundo' */
+        .fundo {
+            background-image: linear-gradient(30deg, black, blue);
+            /* Define um gradiente linear como imagem de fundo */
+            height: 100vh;
+            /* Define a altura para 100% da altura da janela de visualização (viewport) */
+            color: azure;
+            /* Define a cor do texto para azul claro */
+            font-family: arial, "Helvetica Neue", Helvetica, sans-serif;
+            /* Define a família de fontes para o texto */
+            text-align: center;
+            /* Centraliza o texto horizontalmente */
+        }
+
+        /* Estilos para a div com a classe 'calculadora' */
+        .calculadora {
+            position: absolute;
+            /* Posiciona a div de forma absoluta em relação ao seu elemento pai mais próximo com posição relativa ou absoluta */
+            background-color: rgba(0, 0, 0, 0.8);
+            /* Define a cor de fundo para preto com 80% de opacidade */
+            top: 50%;
+            /* Posiciona a div no meio verticalmente */
+            left: 50%;
+            /* Posiciona a div no meio horizontalmente */
+            transform: translate(-50%, -50%);
+            /* Desloca a div para a esquerda e para cima em 50% de sua própria largura e altura, respectivamente, efetivamente centralizando a div */
+            border-radius: 15px;
+            /* Arredonda os cantos da div */
+            padding: 15px;
+            /* Adiciona um espaçamento interno de 15px */
+        }
+
+        /* Estilos para os botões com a classe 'botao' */
+        .botao {
+            width: 50px;
+            /* Define a largura do botão */
+            height: 50px;
+            /* Define a altura do botão */
+            font-size: 25px;
+            /* Define o tamanho da fonte do botão */
+            cursor: pointer;
+            /* Muda o cursor para um ponteiro quando o mouse está sobre o botão */
+            background-color: rgb(31, 31, 31);
+            /* Define a cor de fundo do botão para um cinza escuro */
+            border: none;
+            /* Remove a borda do botão */
+            color: #fff;
+            /* Define a cor do texto do botão para branco */
+            margin: 3px;
+            /* Adiciona uma margem ao redor do botão */
+        }
+
+        /* Estilos para o botão quando o mouse está sobre ele */
+        .botao:hover {
+            background-color: rgb(22, 24, 168);
+            /* Muda a cor de fundo do botão para azul quando o mouse está sobre ele */
+        }
+
+        /* Estilos para o parágrafo com o id 'resultado' */
+        #resultado {
+            width: 207px;
+            /* Define a largura do parágrafo */
+            height: 30px;
+            /* Define a altura do parágrafo */
+            background-color: #fff;
+            /* Define a cor de fundo do parágrafo para branco */
+            margin: 5px;
+            /* Adiciona uma margem ao redor do parágrafo */
+            font-size: 25px;
+            /* Define o tamanho da fonte do parágrafo */
+            color: black;
+            /* Define a cor do texto do parágrafo para preto */
+            text-align: right;
+            /* Alinha o texto à direita */
+            padding: 5px;
+            /* Adiciona um espaçamento interno de 5px */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="fundo">
+        <h1> Thales Ferreira</h1>
+        <div class="calculadora">
+            <h1>Calculadora</h1>
+            <p id="resultado"></p>
+            <table>
+                <!-- Aqui começa a tabela de botões da calculadora -->
+                <!-- Cada linha (<tr>) representa uma linha de botões, e cada célula (<td>) representa um botão -->
+                <tr>
+                    <td><button class="botao">C</button></td>
+                    <td><button class="botao">D</button></td>
+                    <td><button class="botao">/</button></td>
+                    <td><button class="botao">x</button></td>
+                </tr>
+                <tr>
+                    <td><button class="botao">7</button></td>
+                    <td><button class="botao">8</button></td>
+                    <td><button class="botao">9</button></td>
+                    <td><button class="botao">-</button></td>
+                </tr>
+                <tr>
+                    <td><button class="botao">4</button></td>
+                    <td><button class="botao">5</button></td>
+                    <td><button class="botao">6</button></td>
+                    <td><button class="botao">+</button></td>
+                </tr>
+                <tr>
+                    <td><button class="botao">1</button></td>
+                    <td><button class="botao">2</button></td>
+                    <td><button class="botao">3</button></td>
+                    <td rowspan="2"><button class="botao" style="height: 106px;">=</button></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button class="botao" style="width: 106px;">0</button></td>
+                    <td><button class="botao">.</button></td>
+                </tr>
+            </table>
+        </div>
+
+
+        <script>
+            /* Aqui começa o código JavaScript que faz a calculadora funcionar */
+
+            /* Obtém uma referência ao elemento do resultado */
+            var resultado = document.getElementById('resultado');
+
+            /* Obtém uma lista de todos os botões e converte essa lista em um array */
+            var botoes = Array.prototype.slice.call(document.getElementsByClassName('botao'));
+
+            /* Mapeia cada botão para uma função que adiciona um evento de clique a ele */
+            botoes.map(function (button) {
+                button.addEventListener('click', function () {
+                    /* Se o botão for 'C', limpa o resultado */
+                    if (button.innerText === 'C') {
+                        resultado.innerText = '';
+                    }
+                    /* Se o botão for 'D', remove o último caractere do resultado */
+                    else if (button.innerText === 'D') {
+                        resultado.innerText = resultado.innerText.slice(0, -1);
+                    }
+                    /* Se o botão for '=', tenta avaliar o resultado como uma expressão matemática */
+                    else if (button.innerText === '=') {
+                        try {
+                            resultado.innerText = eval(resultado.innerText);
+                        } catch {
+                            resultado.innerText = "Erro";
+                        }
+                    }
+                    /* Para qualquer outro botão, adiciona o texto do botão ao resultado */
+                    else {
+                        var valorBotao = button.innerText;
+                        /* Se o botão for 'x', muda o valor do botão para '*' */
+                        if (valorBotao === 'x') {
+                            valorBotao = '*';
+                        }
+                        resultado.innerText += valorBotao;
+                    }
+                });
+            });
+        </script>
+
+</body>
+
+</html>
